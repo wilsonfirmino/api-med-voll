@@ -36,7 +36,10 @@ public class Medico {
     @Embedded // vai tornar os atributos da classe Endereco campos da tabela Medicos 
     private Endereco endereco;
 
+    private Boolean ativo;
+
     public Medico(DadosCadastroMedico dados){
+        this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -58,6 +61,10 @@ public class Medico {
         if(dados.endereco() != null){
             this.endereco.atualizarInformacoes(dados.endereco());
         }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
     
 }

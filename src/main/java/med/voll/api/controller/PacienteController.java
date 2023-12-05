@@ -3,7 +3,9 @@ package med.voll.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,8 @@ public class PacienteController {
 
     @GetMapping
     public Page<DadosListagemPaciente> listar(Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemPaciente::new);
+        //return repository.findAll(paginacao).map(DadosListagemPaciente::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
     }  
 
     @PutMapping
@@ -43,6 +46,14 @@ public class PacienteController {
         var paciente = repository.getReferenceById(dados.id());
         paciente.atualizarInformacoes(dados);
 
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+        //repository.deleteById(id); // Excluir o registro do banco
+        var paciente = repository.getReferenceById(id);
+        paciente.excluir();
     }
 
 
