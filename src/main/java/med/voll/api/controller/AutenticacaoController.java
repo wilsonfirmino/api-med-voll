@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AutenticacaoController {
 
     @Autowired
-    private AuthenticationManager manager;
+    private AuthenticationManager manager; 
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados){
